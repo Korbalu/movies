@@ -1,8 +1,8 @@
 export interface MovieModel {
   id: number;
   title: string;
-  pic: string;
+  poster_path: string;
   overview: string;
-  releaseYear: string;
-  language: string;
+  release_date: string;
+  original_language: string;
 }

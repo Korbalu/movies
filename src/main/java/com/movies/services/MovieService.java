@@ -68,7 +68,13 @@ public class MovieService {
             movie.setId(movieJson.getInt("id"));
             movie.setTitle(movieJson.getString("title"));
             movie.setOverview(movieJson.getString("overview"));
-            movie.setPic(movieJson.getString("poster_path"));
+
+            String baseUrl = "https://image.tmdb.org/t/p/";
+            String imageSize = "w185";
+            String imagePath = movieJson.getString("poster_path");
+            String imageUrl = baseUrl + imageSize + imagePath;
+            movie.setPic(imageUrl);
+
             movie.setLanguage(movieJson.getString("original_language"));
             movie.setReleaseYear(movieJson.getString("release_date"));
             movies.add(movie);

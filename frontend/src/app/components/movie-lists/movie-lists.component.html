@@ -1,12 +1,18 @@
 <div>
   <button class="btn-primary" (click)="topRatedLister()">See Top Rated Movies</button>
 </div>
-<div *ngIf="isTopRatedVisible">
-  <div *ngFor="let movie of movies">
-    <div>id: {{movie.id}}</div>
-    <div>title: {{movie.title}}</div>
-    <div>overview: {{movie.overview}}</div>
-    <div>released: {{movie.releaseYear}}</div>
-    <div>language: {{movie.language}}</div>
+<div class="movie-container" *ngIf="isTopRatedVisible">
+  <div class="movie-item" *ngFor="let movie of movies">
+    <div class="img.container">
+      <img src="{{movie.poster_path}}"
+           alt="Product Image">
+    </div>
+    <div class="details-container">
+      <div>id: {{movie.id}}</div>
+      <div>title: {{movie.title}}</div>
+      <div>overview: {{movie.overview}}</div>
+      <div>released: {{movie.release_date}}</div>
+      <div>language: {{movie.original_language}}</div>
+    </div>
   </div>
 </div>
