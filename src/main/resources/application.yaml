@@ -19,24 +19,6 @@
 #        format_sql: false
 #        dialect: org.hibernate.dialect.MySQL8Dialect
 #
-#cors-policies: http://localhost:4200, http://127.0.0.1:4200
-
-#  server.port=8080
-#
-#  spring.datasource.url=jdbc:postgresql://localhost:5432/movies
-#  spring.datasource.username=root
-#  spring.datasource.password=test1234
-#  spring.datasource.driver-class-name=org.postgresql.Driver
-#
-#  spring.jpa.database=POSTGRESQL
-#  spring.jpa.show-sql=true
-#  spring.jpa.generate-ddl=true
-#  spring.jpa.hibernate.ddl-auto=update
-#  spring.jpa.properties.hibernate.show_sql=false
-#  spring.jpa.properties.hibernate.format_sql=false
-#  spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-#
-#  cors-policies=http://localhost:4200,http://127.0.0.1:4200
 
 server:
   port: 8080
