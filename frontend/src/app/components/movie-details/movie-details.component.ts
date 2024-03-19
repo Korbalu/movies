@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ReviewService} from "../../services/review.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ReviewModel} from "../../models/review-model";
+import {ReviewListModel} from "../../models/review-list-model";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -25,6 +27,7 @@ export class MovieDetailsComponent {
   };
   movieId: number = 0;
   reviewForm!: FormGroup;
+  reviews: Array<ReviewListModel> = [];
 
   constructor(private movieService: MovieService, private reviewService: ReviewService,
               private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
@@ -39,6 +42,28 @@ export class MovieDetailsComponent {
       this.movieId = params['id'];
     })
     this.movieDetailer(this.movieId);
+    this.reviewLister()
+  }
+
+  reviewLister() {
+    this.reviewService.reviewLister(this.movieId).subscribe({
+      next: (data) => {
+        this.reviews = data;
+        for (const review of this.reviews) {
+          // @ts-ignore
+          const [year, month, day, hour, minute, second] = review.createdAt;
+          const createdAtDate = new Date(year, month - 1, day, hour, minute, second);
+          const datePipe = new DatePipe('en-US');
+          // @ts-ignore
+          review.createdAt = datePipe.transform(createdAtDate, 'yyyy/MM/dd HH:mm:ss');
+        }
+      },
+      error: err => {
+        console.log(err);
+      },
+      complete: () => {
+      }
+    })
   }
 
   movieDetailer(id: number) {
@@ -55,20 +80,19 @@ export class MovieDetailsComponent {
   }
 
   submit() {
-    let data: ReviewModel = {usersMail: '', reviewText:'', movieId:0};
+    let data: ReviewModel = {usersMail: '', reviewText: '', movieId: 0};
     data.movieId = this.movieId;
     data.reviewText = this.reviewForm.value.reviewText;
     data.usersMail = this.reviewForm.value.reviewAuthor;
     this.reviewService.reviewCreator(data).subscribe({
       next: () => {
-        console.log(data)
       },
       error: err => {
         console.log(err);
-
       },
       complete: () => {
-        console.log(data)
+        this.reviewForm.reset();
+        this.reviewLister();
       }
     })
   }

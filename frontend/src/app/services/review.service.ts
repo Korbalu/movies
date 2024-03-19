@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ReviewModel} from "../models/review-model";
 import {Observable} from "rxjs";
+import {ReviewListModel} from "../models/review-list-model";
 
-const BASE_URL = "http://localhost:8080/api/reviews";
+const BASE_URL = "http://localhost:8080/api";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class ReviewService {
   }
 
   reviewCreator(review: ReviewModel): Observable<any> {
-    console.log(review)
-    return this.http.post<ReviewModel>(BASE_URL + "/newReview", review)
+    return this.http.post<ReviewModel>(BASE_URL + "/reviews/newReview", review)
+  }
+
+  reviewLister(id: number): Observable<any> {
+    return this.http.get<Array<ReviewListModel>>(BASE_URL + "/movie/searchReview/" + id);
   }
 }

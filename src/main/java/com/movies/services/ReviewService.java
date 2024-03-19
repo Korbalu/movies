@@ -2,8 +2,11 @@ package com.movies.services;
 
 import com.movies.domain.Review;
 import com.movies.dto.incoming.ReviewDTO;
+import com.movies.dto.outgoing.ReviewListDTO;
 import com.movies.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReviewService {
@@ -15,9 +18,11 @@ public class ReviewService {
     }
 
     public void createReview(ReviewDTO reviewDTO) {
-        System.out.println(reviewDTO + " from Serv");
         Review review = new Review(reviewDTO.getUsersMail(), reviewDTO.getReviewText(), reviewDTO.getMovieId());
-        System.out.println(review);
         reviewRepository.save(review);
+    }
+
+    public List<ReviewListDTO> reviewLister(Long movieId){
+        return reviewRepository.findByMovieId(movieId).stream().map(ReviewListDTO::new).toList();
     }
 }

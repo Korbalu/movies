@@ -5,29 +5,36 @@
          alt="Movie Image">
   </div>
   <div class="details-container">
+    <h5>{{movieDetails.title}}</h5>
     <div>id: {{movieDetails.id}}</div>
-    <div>title: {{movieDetails.title}}</div>
-    <div>overview: {{movieDetails.overview}}</div>
+    <div>overview:</div>
+    <div>{{movieDetails.overview}}</div>
     <div>released: {{movieDetails.release_date}}</div>
     <div>original_language: {{movieDetails.original_language}}</div>
     <div>popularity: {{movieDetails.popularity}}</div>
     <div>rating: {{movieDetails.vote_average}}</div>
+    <br>
     <div>
+      <h5>Add review</h5>
       <form [formGroup]="reviewForm">
-        <label class="form-label" for="reviewAuthor">Email address</label>
+        <label class="form-label" for="reviewAuthor"
+               [ngClass]="{'text-danger': (reviewForm.get('reviewAuthor')?.invalid && reviewForm.get('reviewAuthor')?.touched)
+    || (reviewForm.get('reviewAuthor')?.errors?.['serverError'])}"
+        >Email address</label>
         <input type="email" class="form-control"
                formControlName="reviewAuthor"
                id="reviewAuthor"
                name="reviewAuthor"
                placeholder="Enter Valid Email To Write Review"/>
-        <label  class="form-label" for="reviewText"
-                [ngClass]="{'text-danger': (reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched)
+        <label class="form-label" for="reviewText"
+               [ngClass]="{'text-danger': (reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched)
     || (reviewForm.get('reviewText')?.errors?.['serverError'])}"
-                for="reviewText">Review Text</label>
-        <textarea class="form-control" #reviewText id="reviewText" rows="3" formControlName="reviewText"
+        >Review Text</label>
+        <textarea class="form-control" id="reviewText" rows="2" formControlName="reviewText"
                   placeholder="Add review"
                   [ngClass]="{'border-danger': (reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched)
-    || (reviewForm.get('reviewText')?.errors?.['serverError'])}"></textarea>
+    || (reviewForm.get('reviewText')?.errors?.['serverError'])}"
+        ></textarea>
         <button
           [disabled]="reviewForm.invalid"
           type="submit" class="btn btn-success" (click)="submit()" style="margin-top: 1rem">Save review
@@ -36,4 +43,17 @@
     </div>
   </div>
 </div>
+<br>
+<div>
+  <h5>Reviews:</h5>
+  <div class="reviews" *ngFor="let review of reviews">
+    <div class="review-info">
+      <div><strong>Author:</strong> {{review.authorMail}}</div>
+      <div><strong>Review:</strong> {{review.reviewText}}</div>
+      <div><strong>Created:</strong> {{review.createdAt}}</div>
+    </div>
+    <br>
+  </div>
+</div>
+
 
