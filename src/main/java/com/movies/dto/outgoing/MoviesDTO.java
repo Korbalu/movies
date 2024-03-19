@@ -1,4 +1,4 @@
-package com.movies.dto;
+package com.movies.dto.outgoing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

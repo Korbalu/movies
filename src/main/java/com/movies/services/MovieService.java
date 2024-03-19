@@ -1,9 +1,8 @@
 package com.movies.services;
 
-import com.movies.dto.Movie;
-import com.movies.dto.MovieDetails;
-import com.movies.dto.MovieDetailsDTO;
-import com.movies.dto.MoviesDTO;
+import com.movies.dto.outgoing.Movie;
+import com.movies.dto.outgoing.MovieDetails;
+import com.movies.dto.outgoing.MovieDetailsDTO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

@@ -12,15 +12,28 @@
     <div>original_language: {{movieDetails.original_language}}</div>
     <div>popularity: {{movieDetails.popularity}}</div>
     <div>rating: {{movieDetails.vote_average}}</div>
+    <div>
+      <form [formGroup]="reviewForm">
+        <label class="form-label" for="reviewAuthor">Email address</label>
+        <input type="email" class="form-control"
+               formControlName="reviewAuthor"
+               id="reviewAuthor"
+               name="reviewAuthor"
+               placeholder="Enter Valid Email To Write Review"/>
+        <label  class="form-label" for="reviewText"
+                [ngClass]="{'text-danger': (reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched)
+    || (reviewForm.get('reviewText')?.errors?.['serverError'])}"
+                for="reviewText">Review Text</label>
+        <textarea class="form-control" #reviewText id="reviewText" rows="3" formControlName="reviewText"
+                  placeholder="Add review"
+                  [ngClass]="{'border-danger': (reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched)
+    || (reviewForm.get('reviewText')?.errors?.['serverError'])}"></textarea>
+        <button
+          [disabled]="reviewForm.invalid"
+          type="submit" class="btn btn-success" (click)="submit()" style="margin-top: 1rem">Save review
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
-
-<!--id: number;-->
-<!--title: string;-->
-<!--poster_path: string;-->
-<!--overview: string;-->
-<!--release_date: string;-->
-<!--original_language: string;-->
-<!--popularity: number;-->
-<!--vote_average: number;-->

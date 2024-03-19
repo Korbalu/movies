@@ -1,7 +1,10 @@
 import {Component} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
-import {MovieDetails} from "../../models/movie-details";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ReviewService} from "../../services/review.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ReviewModel} from "../../models/review-model";
+
 
 @Component({
   selector: 'app-movie-details',
@@ -20,10 +23,15 @@ export class MovieDetailsComponent {
     popularity: 0,
     vote_average: 0
   };
-  movieId:number = 0;
+  movieId: number = 0;
+  reviewForm!: FormGroup;
 
-  constructor(private movieService: MovieService, private activatedRoute: ActivatedRoute, private router: Router) {
-
+  constructor(private movieService: MovieService, private reviewService: ReviewService,
+              private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+    this.reviewForm = this.formBuilder.group({
+      reviewAuthor: ['', Validators.required],
+      reviewText: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
@@ -42,6 +50,25 @@ export class MovieDetailsComponent {
         console.log(err);
       },
       complete: () => {
+      }
+    })
+  }
+
+  submit() {
+    let data: ReviewModel = {usersMail: '', reviewText:'', movieId:0};
+    data.movieId = this.movieId;
+    data.reviewText = this.reviewForm.value.reviewText;
+    data.usersMail = this.reviewForm.value.reviewAuthor;
+    this.reviewService.reviewCreator(data).subscribe({
+      next: () => {
+        console.log(data)
+      },
+      error: err => {
+        console.log(err);
+
+      },
+      complete: () => {
+        console.log(data)
       }
     })
   }

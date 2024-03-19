@@ -1,7 +1,7 @@
 package com.movies.controllers;
 
-import com.movies.dto.Movie;
-import com.movies.dto.MovieDetails;
+import com.movies.dto.outgoing.Movie;
+import com.movies.dto.outgoing.MovieDetails;
 import com.movies.services.MovieService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

@@ -7,6 +7,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {MovieListsComponent} from './components/movie-lists/movie-lists.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-package com.movies.dto;
+package com.movies.dto.outgoing;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,17 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieDetails {
+public class Movie {
     private Integer id;
     private String title;
     @JsonProperty("poster_path")
-    private String posterPath;
+    private String pic;
     private String overview;
     @JsonProperty("release_date")
-    private String releaseDate;
+    private String releaseYear;
     @JsonProperty("original_language")
-    private String originalLanguage;
-    private Double popularity;
-    @JsonProperty("vote_average")
-    private Double voteAverage;
+    private String language;
 }
