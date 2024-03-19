@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
 import {MovieModel} from "../../models/movie-model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-movie-lists',
@@ -9,29 +10,52 @@ import {MovieModel} from "../../models/movie-model";
 })
 export class MovieListsComponent {
 
-  movies: Array<MovieModel> = [];
+  topRatedMovies: Array<MovieModel> = [];
+  popularMovies: Array<MovieModel> = [];
   isTopRatedVisible = false;
+  isPopularVisible = false;
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.movieService.movieLister().subscribe({
+    this.movieService.topRatedLister().subscribe({
       next: (data) => {
-        this.movies = data;
+        this.topRatedMovies = data;
       },
       error: err => {
         console.log(err);
       },
       complete: () => {
-        console.log("Movies listed."); //delete later-----------------------------------------------------
+      }
+    })
+    this.movieService.popularLister().subscribe({
+      next: (data) => {
+        this.popularMovies = data;
+      },
+      error: err => {
+        console.log(err);
+      },
+      complete: () => {
       }
     })
   }
 
-
   topRatedLister() {
     this.isTopRatedVisible = !this.isTopRatedVisible;
+    if (this.isPopularVisible){
+      this.isPopularVisible = !this.isPopularVisible;
+    }
+  }
+  popularLister() {
+    this.isPopularVisible = !this.isPopularVisible;
+    if (this.isTopRatedVisible){
+      this.isTopRatedVisible = !this.isTopRatedVisible;
+    }
+  }
+
+  detailer(id: number) {
+    this.router.navigate(["/movie-details/", id])
   }
 }

@@ -1,15 +1,39 @@
-<div>
-  <button class="btn-primary" (click)="topRatedLister()">See Top Rated Movies</button>
+<div style="display: flex; justify-content: space-evenly;">
+  <div>
+    <button *ngIf="isTopRatedVisible==false" class="btn-primary" (click)="topRatedLister()">See Top Rated Movies
+    </button>
+    <button *ngIf="isTopRatedVisible==true" class="btn-primary" (click)="topRatedLister()">Hide Top Rated Movies
+    </button>
+  </div>
+  <div>
+    <button *ngIf="isPopularVisible==false" class="btn-primary" (click)="popularLister()">See Popular Movies</button>
+    <button *ngIf="isPopularVisible==true" class="btn-primary" (click)="popularLister()">Hide Popular Movies</button>
+  </div>
 </div>
 <div class="movie-container" *ngIf="isTopRatedVisible">
-  <div class="movie-item" *ngFor="let movie of movies">
-    <div class="img.container">
+  <div class="movie-item" *ngFor="let movie of topRatedMovies">
+    <div class="img-container" class="clickable" (click)="detailer(movie.id)">
       <img src="{{movie.poster_path}}"
-           alt="Product Image">
+           alt="Movie Image">
     </div>
     <div class="details-container">
+      <h5 class="clickable" (click)="detailer(movie.id)">{{movie.title}}</h5>
       <div>id: {{movie.id}}</div>
-      <div>title: {{movie.title}}</div>
+      <div>overview: {{movie.overview}}</div>
+      <div>released: {{movie.release_date}}</div>
+      <div>language: {{movie.original_language}}</div>
+    </div>
+  </div>
+</div>
+<div class="movie-container" *ngIf="isPopularVisible">
+  <div class="movie-item" *ngFor="let movie of popularMovies">
+    <div class="img-container" class="clickable" (click)="detailer(movie.id)">
+      <img src="{{movie.poster_path}}"
+           alt="Movie Image">
+    </div>
+    <div class="details-container">
+      <h5 class="clickable" (click)="detailer(movie.id)">{{movie.title}}</h5>
+      <div>id: {{movie.id}}</div>
       <div>overview: {{movie.overview}}</div>
       <div>released: {{movie.release_date}}</div>
       <div>language: {{movie.original_language}}</div>

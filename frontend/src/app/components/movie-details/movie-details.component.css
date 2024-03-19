@@ -3,26 +3,17 @@
   flex-wrap: wrap;
 }
 
-.movie-item {
-  display: flex;
-  margin-bottom: 20px;
-}
-
 .image-container {
   flex: 0 0 auto;
   margin-right: 20px;
 }
 
 .image-container img {
-  max-height: 300px;
+  max-height: 500px;
   width: auto;
   cursor: pointer;
 }
 
 .details-container {
   flex: 1;
-}
-
-.clickable {
-  cursor: pointer;
 }

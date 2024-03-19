@@ -1,0 +1,26 @@
+<button class="btn-primary" (click)="goBack()">Back</button>
+<div class="movie-container">
+  <div class="img-container">
+    <img src="{{movieDetails.poster_path}}"
+         alt="Movie Image">
+  </div>
+  <div class="details-container">
+    <div>id: {{movieDetails.id}}</div>
+    <div>title: {{movieDetails.title}}</div>
+    <div>overview: {{movieDetails.overview}}</div>
+    <div>released: {{movieDetails.release_date}}</div>
+    <div>original_language: {{movieDetails.original_language}}</div>
+    <div>popularity: {{movieDetails.popularity}}</div>
+    <div>rating: {{movieDetails.vote_average}}</div>
+  </div>
+</div>
+
+
+<!--id: number;-->
+<!--title: string;-->
+<!--poster_path: string;-->
+<!--overview: string;-->
+<!--release_date: string;-->
+<!--original_language: string;-->
+<!--popularity: number;-->
+<!--vote_average: number;-->

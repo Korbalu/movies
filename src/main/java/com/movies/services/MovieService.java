@@ -1,6 +1,8 @@
 package com.movies.services;
 
 import com.movies.dto.Movie;
+import com.movies.dto.MovieDetails;
+import com.movies.dto.MovieDetailsDTO;
 import com.movies.dto.MoviesDTO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,14 +33,14 @@ public class MovieService {
         this.webClient = webClientBuilder.baseUrl(TMDB_API_URL).build();
     }
 
-    public Mono<Movie> searchMovieByTitle(String title) {
+    public Mono<MovieDetails> searchMovieByTitle(String title) {
         return webClient.get()
                 .uri("/search/movie?api_key={API_KEY}&query={title}", API_KEY, title)
                 .retrieve()
-                .bodyToMono(MoviesDTO.class)
-                .flatMap(moviesDTO -> {
-                    if (moviesDTO != null && moviesDTO.getResults() != null && !moviesDTO.getResults().isEmpty()) {
-                        return Mono.just(moviesDTO.getResults().get(0));
+                .bodyToMono(MovieDetailsDTO.class)
+                .flatMap(movieDetailsDTO -> {
+                    if (movieDetailsDTO != null && movieDetailsDTO.getResults() != null && !movieDetailsDTO.getResults().isEmpty()) {
+                        return Mono.just(movieDetailsDTO.getResults().get(0));
                     } else {
                         return Mono.empty();
                     }
@@ -82,4 +84,20 @@ public class MovieService {
         return movies;
     }
 
+    public Mono<MovieDetails> searchMovieById(Integer id) {
+        return webClient.get()
+                .uri("/movie/{id}?api_key={API_KEY}&language=en-US", id, API_KEY)
+                .retrieve()
+                .bodyToMono(MovieDetails.class)
+                .flatMap(movieDetails -> {
+                    String baseUrl = "https://image.tmdb.org/t/p/";
+                    String imageSize = "w342";
+                    String imagePath = movieDetails.getPosterPath();
+                    String imageUrl = baseUrl + imageSize + imagePath;
+                    movieDetails.setPosterPath(imageUrl);
+                    return Mono.just(movieDetails);
+                });
+    }
+
 }
+
