@@ -1,0 +1,7 @@
+.main{
+  min-height: 89.8vh;
+  height: auto;
+  background: rgb(251,250,218);
+  background: linear-gradient(180deg, rgba(251,250,218,1) 23%, rgba(97,134,110,1) 100%);
+  padding: 20px;
+}

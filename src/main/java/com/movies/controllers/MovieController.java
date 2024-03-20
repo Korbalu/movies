@@ -28,6 +28,10 @@ public class MovieController {
     public List<Movie> searchMoviesPopular() throws IOException {
         return movieService.processResponse("popular");
     }
+    @GetMapping("/nowPlaying")
+    public List<Movie> searchMoviesNowPlayed() throws IOException {
+        return movieService.processResponse("now_playing");
+    }
 
     @GetMapping("/search/{title}")
     public Mono<MovieDetails> searchMovieByTitle(@PathVariable String title) {

@@ -22,6 +22,9 @@ export class MovieService {
   popularLister(): Observable<Array<MovieModel>> {
     return this.http.get<Array<MovieModel>>(BASE_URL + "/popular")
   }
+  nowPlayedLister(): Observable<Array<MovieModel>> {
+    return this.http.get<Array<MovieModel>>(BASE_URL + "/nowPlaying")
+  }
   movieDetailer(title: string):Observable<any>{
     return this.http.get<MovieDetails>(BASE_URL + "/search/" + title)
   }

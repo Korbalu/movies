@@ -6,12 +6,30 @@
     </button>
   </div>
   <div>
+    <button *ngIf="isFreshVisible==false" class="btn-primary" (click)="freshLister()">See Now Played Movie</button>
+    <button *ngIf="isFreshVisible==true" class="btn-primary" (click)="freshLister()">Hide Now Played Movies</button>
+  </div>
+  <div>
     <button *ngIf="isPopularVisible==false" class="btn-primary" (click)="popularLister()">See Popular Movies</button>
     <button *ngIf="isPopularVisible==true" class="btn-primary" (click)="popularLister()">Hide Popular Movies</button>
   </div>
 </div>
 <div class="movie-container" *ngIf="isTopRatedVisible">
   <div class="movie-item" *ngFor="let movie of topRatedMovies">
+    <div class="img-container" class="clickable" (click)="detailer(movie.id)">
+      <img src="{{movie.poster_path}}"
+           alt="Movie Image">
+    </div>
+    <div class="details-container">
+      <h5 class="clickable" (click)="detailer(movie.id)">{{movie.title}}</h5>
+      <div>overview: {{movie.overview}}</div>
+      <div>released: {{movie.release_date}}</div>
+      <div>language: {{movie.original_language}}</div>
+    </div>
+  </div>
+</div>
+<div class="movie-container" *ngIf="isFreshVisible">
+  <div class="movie-item" *ngFor="let movie of freshMovies">
     <div class="img-container" class="clickable" (click)="detailer(movie.id)">
       <img src="{{movie.poster_path}}"
            alt="Movie Image">
@@ -32,7 +50,6 @@
     </div>
     <div class="details-container">
       <h5 class="clickable" (click)="detailer(movie.id)">{{movie.title}}</h5>
-      <div>id: {{movie.id}}</div>
       <div>overview: {{movie.overview}}</div>
       <div>released: {{movie.release_date}}</div>
       <div>language: {{movie.original_language}}</div>
